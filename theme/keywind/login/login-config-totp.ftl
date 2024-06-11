@@ -19,7 +19,7 @@
   <#if section="header">
     ${msg("loginTotpTitle")}
   <#elseif section="form">
-    <ol class="list-decimal pl-4 space-y-2">
+    <ol class="list-decimal pl-4 space-y-2 prose prose-invert prose-truegray">
       <li class="space-y-2">
         <p>${msg("loginTotpStep1")}</p>
         <ul class="list-disc pl-4">
@@ -56,7 +56,7 @@
           <p>${msg("loginTotpStep2")}</p>
           <img
             alt="Figure: Barcode"
-            class="mx-auto"
+            class="mx-auto rounded my-2 ring-1 ring-white/10"
             src="data:image/png;base64, ${totp.totpSecretQrCode}"
           >
           <@link.kw color="primary" href=totp.manualUrl>

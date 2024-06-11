@@ -72,7 +72,7 @@
     </#if>
   <#elseif section="info">
     <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-      <div class="text-center text-gray-200">
+      <div class="text-center text-gray-300">
         ${msg("noAccount")}
         <@link.kw color="primary" href=url.registrationUrl>
           ${msg("doRegister")}

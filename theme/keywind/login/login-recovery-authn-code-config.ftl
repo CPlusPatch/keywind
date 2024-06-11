@@ -16,7 +16,7 @@
           <p>${msg("recovery-code-config-warning-message")}</p>
         </div>
       </@alert.kw>
-      <ul class="columns-2 font-mono text-center" x-ref="codeList">
+      <ul class="columns-2 font-mono text-center text-gray-300" x-ref="codeList">
         <#list recoveryAuthnCodesConfigBean.generatedRecoveryAuthnCodesList as code>
           <li>${code[0..3]}-${code[4..7]}-${code[8..]}</li>
         </#list>

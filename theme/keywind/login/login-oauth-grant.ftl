@@ -8,7 +8,7 @@
     <#if client.attributes.logoUri??>
       <img class="mb-4 mx-auto" src="${client.attributes.logoUri}"/>
     </#if>
-    <p>
+    <p class="text-gray-200">
       <#if client.name?has_content>
         ${msg("oauthGrantTitle", advancedMsg(client.name))}
       <#else>
@@ -16,8 +16,8 @@
       </#if>
     </p>
   <#elseif section="form">
-    <h3>${msg("oauthGrantRequest")}</h3>
-    <ul class="list-disc pl-4">
+    <h3 class="text-gray-300">${msg("oauthGrantRequest")}</h3>
+    <ul class="list-disc pl-4 prose prose-invert prose-truegray">
       <#if oauth.clientScopesRequested??>
         <#list oauth.clientScopesRequested as clientScope>
           <li>
@@ -31,7 +31,7 @@
       </#if>
     </ul>
     <#if client.attributes.policyUri?? || client.attributes.tosUri??>
-      <h3>
+      <h3 class="text-gray-300">
         <#if client.name?has_content>
           ${msg("oauthGrantInformation",advancedMsg(client.name))}
         <#else>

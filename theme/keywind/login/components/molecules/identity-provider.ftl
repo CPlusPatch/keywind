@@ -4,7 +4,7 @@
   <div class="pt-4 separate text-secondary-400 text-sm">
     ${msg("identity-provider-login-label")}
   </div>
-  <div class="gap-4 grid grid-cols-3">
+  <div class="gap-4 grid grid-cols-3 [&:has(>:last-child:nth-child(1))]:grid-cols-1 [&:has(>:last-child:nth-child(2))]:grid-cols-2">
     <#list providers as provider>
       <#switch provider.alias>
         <#case "apple">

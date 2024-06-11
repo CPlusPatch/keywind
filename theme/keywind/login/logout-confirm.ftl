@@ -7,7 +7,7 @@
   <#if section="header">
     ${msg("logoutConfirmTitle")}
   <#elseif section="form">
-    <p>${msg("logoutConfirmHeader")}</p>
+    <p class="text-gray-100">${msg("logoutConfirmHeader")}</p>
     <@form.kw action=url.logoutConfirmAction method="post">
       <input name="session_code" type="hidden" value="${logoutConfirm.code}">
       <@button.kw color="primary" name="confirmLogout" type="submit" value=msg('doLogout')>

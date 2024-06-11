@@ -25,7 +25,7 @@
         </form>
         <#if shouldDisplayAuthenticators?? && shouldDisplayAuthenticators>
           <#if authenticators.authenticators?size gt 1>
-            <p>${kcSanitize(msg("webauthn-available-authenticators"))?no_esc}</p>
+            <p class="text-gray-300">${kcSanitize(msg("webauthn-available-authenticators"))?no_esc}</p>
           </#if>
           <#list authenticators.authenticators as authenticator>
             <div>
