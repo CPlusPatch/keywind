@@ -4,7 +4,7 @@
       <#assign colorClass="text-primary-600 hover:text-primary-500">
       <#break>
     <#case "secondary">
-      <#assign colorClass="text-secondary-600 hover:text-secondary-900">
+      <#assign colorClass="text-secondary-400 hover:text-secondary-100">
       <#break>
     <#default>
       <#assign colorClass="text-primary-600 hover:text-primary-500">

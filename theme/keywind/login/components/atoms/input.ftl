@@ -4,7 +4,7 @@
 <#macro
   kw
   autofocus=false
-  class="block border-secondary-200 mt-1 rounded-md w-full focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 sm:text-sm"
+  class="block mt-1 w-full appearance-none rounded !ring-0 focus:!ring-0 px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing[3])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] text-base/6 text-zinc-950 placeholder:text-zinc-500 sm:text-sm/6 dark:text-white border border-primary-950/10 hover:border-primary-950/20 dark:border-white/10 dark:hover:border-white/20 bg-transparent dark:bg-white/5 focus:outline-none user-invalid:border-red-500 user-invalid:hover:border-red-500 user-invalid:dark:border-red-500 user-invalid:hover:dark:border-red-500 disabled:border-primary-950/20 dark:hover:disabled:border-white/15 disabled:dark:border-white/15 disabled:dark:bg-white/[2.5%] dark:[color-scheme:dark]"
   disabled=false
   invalid=false
   label=""
@@ -40,7 +40,7 @@
           @click="show = !show"
           aria-controls="${name}"
           :aria-expanded="show"
-          class="absolute text-secondary-400 right-3 top-3 sm:top-2"
+          class="absolute text-secondary-500 right-3 top-3 sm:top-2"
           type="button"
         >
           <div x-show="!show">

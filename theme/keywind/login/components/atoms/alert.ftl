@@ -1,7 +1,7 @@
 <#macro kw color="">
   <#switch color>
     <#case "error">
-      <#assign colorClass="bg-red-100 text-red-600">
+      <#assign colorClass="bg-red-900 text-red-300">
       <#break>
     <#case "info">
       <#assign colorClass="bg-blue-100 text-blue-600">

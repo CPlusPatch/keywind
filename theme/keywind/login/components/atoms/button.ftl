@@ -1,13 +1,13 @@
 <#macro kw color="" component="button" size="" rest...>
   <#switch color>
     <#case "primary">
-      <#assign colorClass="bg-primary-600 text-white focus:ring-primary-600 hover:bg-primary-700">
+      <#assign colorClass="bg-primary-400 text-white focus:ring-primary-400 ring-offset-dark-800 hover:bg-primary-300">
       <#break>
     <#case "secondary">
-      <#assign colorClass="bg-secondary-100 text-secondary-600 focus:ring-secondary-600 hover:bg-secondary-200 hover:text-secondary-900">
+      <#assign colorClass="bg-secondary-800 text-secondary-300 focus:ring-secondary-800 ring-offset-dark-800 hover:bg-secondary-700 hover:text-secondary-100">
       <#break>
     <#default>
-      <#assign colorClass="bg-primary-600 text-white focus:ring-primary-600 hover:bg-primary-700">
+      <#assign colorClass="bg-primary-400 text-white focus:ring-primary-400 ring-offset-dark-800 hover:bg-primary-300">
   </#switch>
 
   <#switch size>
@@ -22,7 +22,7 @@
   </#switch>
 
   <${component}
-    class="${colorClass} ${sizeClass} flex justify-center relative rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-offset-2"
+    class="${colorClass} ${sizeClass} flex justify-center relative rounded w-full focus:outline-none focus:ring-2 focus:ring-offset-2"
 
     <#list rest as attrName, attrValue>
       ${attrName}="${attrValue}"
