@@ -7,7 +7,7 @@ export default {
     optimizeUniversalDefaults: true,
   },
   darkMode: "class",
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require("@tailwindcss/typography")],
   theme: {
     extend: {
       colors: {

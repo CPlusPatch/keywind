@@ -1,5 +1,5 @@
-<#macro kw>
-  <div class="max-w-md space-y-6 w-full">
+<#macro kw size="max-w-md" class="">
+  <div class="${size} space-y-6 w-full ${class}">
     <#nested>
   </div>
 </#macro>

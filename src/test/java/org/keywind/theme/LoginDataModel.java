@@ -26,6 +26,7 @@ public class LoginDataModel {
     dataModel.put("user", createUserModel());
     dataModel.put("username", "Username");
     dataModel.put("x509", createX509Model());
+    dataModel.put("terms", createTermsModel());
     dataModel.putAll(createWebAuthnModel());
 
     return dataModel;
@@ -48,6 +49,16 @@ public class LoginDataModel {
     auth.put("showUsername", new AuthenticationUtil());
 
     return auth;
+  }
+
+  private static Map<String, Object> createTermsModel() {
+    Map<String, Object> terms = new HashMap<>();
+    terms.put("termsTitle", "Terms and Conditions");
+    terms.put("termsText", "By clicking the button below, you agree to the terms and conditions.");
+    terms.put("doAccept", "Accept");
+    terms.put("doReject", "Reject");
+
+    return terms;
   }
 
   private static Map<String, Object> createClientModel() {

@@ -10,13 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
-import freemarker.core.HTMLOutputFormat;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateNotFoundException;
+import java.util.stream.Stream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,87 +21,95 @@ import org.keycloak.theme.KeycloakSanitizerMethod;
 import org.keycloak.theme.beans.MessageFormatterMethod;
 import org.keycloak.theme.beans.MessagesPerFieldBean;
 
+import freemarker.core.HTMLOutputFormat;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateNotFoundException;
+
 public class LoginThemeTest {
-  private static final String LANGUAGE = "English";
-  private static final String MESSAGE_PATH = "theme/base/login/messages/messages";
-  private static final String OUTPUT_PATH = "html/login";
-  private static final String THEME_PATH = "theme/keywind/login";
 
-  @Test
-  public void shouldTestTemplates() throws IOException, TemplateException {
-    Configuration configuration = createFreeMarkerConfiguration();
+    private static final String LANGUAGE = "English";
+    private static final String MESSAGE_PATH = "theme/base/login/messages/messages";
+    private static final String OUTPUT_PATH = "html/login";
+    private static final String THEME_PATH = "theme/keywind/login";
 
-    for (String templateName : getTemplateNames()) {
-      try {
-        Template template = configuration.getTemplate(templateName);
-        String renderedTemplate = renderTemplate(template);
-        Document document = formatHtml(renderedTemplate);
+    @Test
+    public void shouldTestTemplates() throws IOException, TemplateException {
+        Configuration configuration = createFreeMarkerConfiguration();
 
-        saveHtmlToFile(templateName, document);
-      } catch (TemplateNotFoundException e) {
-        System.out.println("Template not found: " + templateName);
-      }
-    }
-  }
+        for (String templateName : getTemplateNames()) {
+            try {
+                Template template = configuration.getTemplate(templateName);
+                String renderedTemplate = renderTemplate(template);
+                Document document = formatHtml(renderedTemplate);
 
-  private Configuration createFreeMarkerConfiguration() throws IOException, TemplateModelException {
-    Configuration configuration = new Configuration(Configuration.VERSION_2_3_32);
-    configuration.setDirectoryForTemplateLoading(new File(THEME_PATH));
-    configuration.setOutputFormat(HTMLOutputFormat.INSTANCE);
-
-    Locale locale = Locale.of(LANGUAGE);
-    Properties messages = loadMessages(locale);
-
-    configuration.setSharedVariable("kcSanitize", new KeycloakSanitizerMethod());
-    configuration.setSharedVariable("messagesPerField", new MessagesPerFieldBean());
-    configuration.setSharedVariable("msg", new MessageFormatterMethod(locale, messages));
-
-    return configuration;
-  }
-
-  private Properties loadMessages(Locale locale) {
-    ResourceBundle resourceBundle = ResourceBundle.getBundle(MESSAGE_PATH, locale);
-    Properties properties = new Properties();
-
-    Enumeration<String> keys = resourceBundle.getKeys();
-    while (keys.hasMoreElements()) {
-      String key = keys.nextElement();
-      String value = resourceBundle.getString(key);
-
-      properties.setProperty(key, value);
+                saveHtmlToFile(templateName, document);
+            } catch (TemplateNotFoundException e) {
+                System.out.println("Template not found: " + templateName);
+            }
+        }
     }
 
-    return properties;
-  }
+    private Configuration createFreeMarkerConfiguration() throws IOException, TemplateModelException {
+        Configuration configuration = new Configuration(Configuration.VERSION_2_3_32);
+        configuration.setDirectoryForTemplateLoading(new File(THEME_PATH));
+        configuration.setOutputFormat(HTMLOutputFormat.INSTANCE);
 
-  private String[] getTemplateNames() {
-    return Arrays.stream(LoginFormsPages.values())
-        .map(Templates::getTemplate)
-        .toArray(String[]::new);
-  }
+        Locale locale = Locale.of(LANGUAGE);
+        Properties messages = loadMessages(locale);
 
-  private String renderTemplate(Template template) throws IOException, TemplateException {
-    Map<String, Object> dataModel = LoginDataModel.createDataModel();
+        configuration.setSharedVariable("kcSanitize", new KeycloakSanitizerMethod());
+        configuration.setSharedVariable("messagesPerField", new MessagesPerFieldBean());
+        configuration.setSharedVariable("msg", new MessageFormatterMethod(locale, messages));
 
-    try (StringWriter writer = new StringWriter()) {
-      template.process(dataModel, writer);
-
-      return writer.toString();
+        return configuration;
     }
-  }
 
-  private Document formatHtml(String html) {
-    Document document = Jsoup.parse(html);
-    document.outputSettings().indentAmount(2);
+    private Properties loadMessages(Locale locale) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(MESSAGE_PATH, locale);
+        Properties properties = new Properties();
 
-    return document;
-  }
+        Enumeration<String> keys = resourceBundle.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            String value = resourceBundle.getString(key);
 
-  private void saveHtmlToFile(String templateName, Document document) throws IOException {
-    File outputFile = new File(OUTPUT_PATH, templateName.replace(".ftl", ".html"));
+            properties.setProperty(key, value);
+        }
 
-    try (FileWriter fileWriter = new FileWriter(outputFile)) {
-      fileWriter.write(document.outerHtml());
+        return properties;
     }
-  }
+
+    private String[] getTemplateNames() {
+        return Stream.concat(Arrays.stream(LoginFormsPages.values())
+                .map(Templates::getTemplate), Stream.of("terms.ftl"))
+                .toArray(String[]::new);
+    }
+
+    private String renderTemplate(Template template) throws IOException, TemplateException {
+        Map<String, Object> dataModel = LoginDataModel.createDataModel();
+
+        try (StringWriter writer = new StringWriter()) {
+            template.process(dataModel, writer);
+
+            return writer.toString();
+        }
+    }
+
+    private Document formatHtml(String html) {
+        Document document = Jsoup.parse(html);
+        document.outputSettings().indentAmount(2);
+
+        return document;
+    }
+
+    private void saveHtmlToFile(String templateName, Document document) throws IOException {
+        File outputFile = new File(OUTPUT_PATH, templateName.replace(".ftl", ".html"));
+
+        try (FileWriter fileWriter = new FileWriter(outputFile)) {
+            fileWriter.write(document.outerHtml());
+        }
+    }
 }

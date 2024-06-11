@@ -13,6 +13,7 @@
 <#macro
   registrationLayout
   displayInfo=false
+  size="max-w-md"
   displayMessage=true
   displayRequiredFields=false
   script=""
@@ -70,7 +71,7 @@
       <@document.kw script=script />
     </head>
     <@body.kw>
-      <@container.kw>
+      <@container.kw size=size>
         <@card.kw content=cardContent footer=cardFooter header=cardHeader />
         <@nav.kw>
           <#nested "nav">
